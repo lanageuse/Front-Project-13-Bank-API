@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 html {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -11,9 +14,6 @@ html {
 
 body {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 .main {
@@ -74,7 +74,7 @@ body {
 }
 
 .hero {
-  background-image: url('../img/bank-tree.jpeg');
+  background-image: url("../img/bank-tree.jpeg");
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -158,6 +158,8 @@ body {
 
 .sign-in-button {
   display: block;
+  border: 0;
+  text-decoration: underline;
   width: 100%;
   padding: 8px;
   font-size: 1.1rem;
@@ -291,4 +293,32 @@ body {
   .transaction-button {
     width: 200px;
   }
+}
+
+.notFound-container {
+  box-sizing: border-box;
+  background-color: white;
+  width: 80vw;
+  margin: 0 auto;
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.notFound-container .link  a{
+  color:white;
+  text-decoration: none;
+}
+.notFound-container .link {
+  display: inline-block;
+  border: 0;
+  padding: 8px 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  background-color: #00bc77;
+}
+
+.notFound-container .title {
+  font-size: 20vh;
+  color: black;
 }
