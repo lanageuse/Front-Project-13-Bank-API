@@ -1,15 +1,18 @@
-import { ReactNode } from "react";
+import { Outlet, useLocation } from "react-router"
+import NavBar from "../UI/navBar/NavBar"
+import Footer from "../UI/footer/Footer"
 
-
-interface MainLayoutProps {
-  children: ReactNode;
-}
-
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout = () => {
+    let location = useLocation()
+  const isHome = location.pathname === '/'
   return (
-    <main>
-      {children}
-    </main>
+    <>
+      <NavBar />
+      <main className={`main ${isHome ? '' : 'bg-dark' }`}>
+        <Outlet />
+      </main>
+      <Footer />
+    </>
   )
 }
-  export default MainLayout
+export default MainLayout
