@@ -1,12 +1,25 @@
 import "./App.css"
 import { Counter } from "./features/counter/Counter"
+import { Navigation } from "./UI/navBar/NavBar"
 import { Quotes } from "./features/quotes/Quotes"
-import logo from "./logo.svg"
+import MainLayout from "./layouts/MainLayout"
+import FeaturesLayout from "./layouts/FeaturesLayout"
+import Hero from "./UI/hero/Hero"
+import Footer from "./UI/footer/Footer"
+import Login from "./features/auth/Login"
+import Profile from "./features/auth/Profile"
 
 export const App = () => (
   <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
+    <Navigation />
+    <MainLayout>
+      <Hero />
+      <FeaturesLayout/>
+      <Login/>
+      <Profile/>
+    </MainLayout>
+    <Footer/>
+    {/* <header className="App-header">
       <Counter />
       <p>
         Edit <code>src/App.tsx</code> and save to reload.
@@ -59,6 +72,6 @@ export const App = () => (
           Reselect
         </a>
       </span>
-    </header>
+    </header> */}
   </div>
 )
