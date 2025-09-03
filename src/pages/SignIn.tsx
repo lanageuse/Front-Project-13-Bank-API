@@ -1,5 +1,5 @@
 import LoginForm  from "../features/auth/LoginForm";
-const Login = () => {
+const SignIn = () => {
     return ( 
         <>
         <LoginForm/>
@@ -7,4 +7,4 @@ const Login = () => {
      );
 }
  
-export default Login;
+export default SignIn;
