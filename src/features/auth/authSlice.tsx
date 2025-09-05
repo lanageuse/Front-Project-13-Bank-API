@@ -15,13 +15,39 @@ type AuthState = {
   isAuthenticated: boolean
   token: string | null
   loginError: string | null
+  rememberMe: boolean
 }
 
-const initialState: AuthState = {
-  isAuthenticated: false,
-  token: null,
-  loginError: null,
+const getStoredAuthData = () => {
+  const localToken = localStorage.getItem("token")
+  const localAuth = localStorage.getItem("auth")
+  if (localToken && localAuth === "true") {
+    return {
+      isAuthenticated: true,
+      token: localToken,
+      loginError: null,
+      rememberMe: true,
+    }
+  }
+  const sessionToken = sessionStorage.getItem("token")
+  const sessionAuth = sessionStorage.getItem("auth")
+  if (sessionToken && sessionAuth === "true") {
+    return {
+      isAuthenticated: true,
+      token: sessionToken,
+      loginError: null,
+      rememberMe: false,
+    }
+  }
+  return {
+    isAuthenticated: false,
+    token: null,
+    loginError: null,
+    rememberMe: false,
+  }
 }
+
+const initialState: AuthState = getStoredAuthData()
 
 export const authSlice = createSlice({
   name: "auth",
@@ -45,11 +71,15 @@ export const authSlice = createSlice({
       state.loginError = null
       localStorage.removeItem("token")
       localStorage.removeItem("auth")
-    },
+      localStorage.removeItem("rememberMe")
+      sessionStorage.removeItem("token")
+      sessionStorage.removeItem("auth")
+    }
   },
 })
 
-export const { setAuth, setToken, setLoginError, clearLoginError, logout } = authSlice.actions
+export const { setAuth, setToken, setLoginError, clearLoginError, logout } =
+  authSlice.actions
 
 export const handleLoginSucess =
   (token: string, remember: boolean) => (dispatch: AppDispatch) => {
@@ -58,13 +88,24 @@ export const handleLoginSucess =
     if (remember) {
       localStorage.setItem("token", token)
       localStorage.setItem("auth", "true")
+      localStorage.setItem("rememberMe", "true")
+
+      sessionStorage.removeItem("token")
+      sessionStorage.removeItem("auth")
+    }else{
+      sessionStorage.setItem("token", token)
+      sessionStorage.setItem("auth", "true")
+  
+      localStorage.removeItem("token")
+      localStorage.removeItem("auth")
+      localStorage.removeItem("rememberMe")
     }
     toast.success("Login sucess")
   }
 
 export const handleLoginError = (error: unknown) => (dispatch: AppDispatch) => {
   let errorMessage = "Erreur de connexion"
-  if (error && typeof error === 'object' && 'status' in error) {
+  if (error && typeof error === "object" && "status" in error) {
     const rtkError = error as RTKQueryError
     errorMessage = rtkError.data?.message ?? "erreur inconnue"
   }
