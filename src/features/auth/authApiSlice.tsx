@@ -1,10 +1,24 @@
 // Need to use the React-specific entry point to import `createApi`
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import type { RootState } from "../../app/store"
+import { url } from "inspector"
 
-type AuthApiResponse = {
+type LoginApiResponse = {
   body: {
     token: string
+  }
+  message: string
+  status: number
+}
+
+type ProfileApiResponse = {
+  body: {
+    email: string
+		firstName: string
+		lastName: string
+		createdAt: string
+		updatedAt: string
+		id: string
   }
   message: string
   status: number
@@ -26,7 +40,7 @@ export const authApiSlice = createApi({
   // Tag types are used for caching and invalidation.
   tagTypes: ["Auth"],
   endpoints: build => ({
-    login: build.mutation<AuthApiResponse, { email: string; password: string }>(
+    login: build.mutation<LoginApiResponse, { email: string; password: string }>(
       {
         query: credentials => ({
           url: "/login",
@@ -35,7 +49,16 @@ export const authApiSlice = createApi({
         }),
       },
     ),
+    profile : build.mutation<ProfileApiResponse, undefined >(
+      {
+        query : () =>({
+          url : "/profile",
+          method : "POST",
+        })
+      }
+
+    )
   }),
 })
 
-export const { useLoginMutation } = authApiSlice
+export const { useLoginMutation, useProfileMutation } = authApiSlice
