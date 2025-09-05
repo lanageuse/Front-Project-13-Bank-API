@@ -1,6 +1,7 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { createSlice } from "@reduxjs/toolkit"
 import type { AppDispatch } from "../../app/store"
+import { toast } from "react-toastify"
 
 // Type pour les erreurs RTK Query
 type RTKQueryError = {
@@ -48,8 +49,7 @@ export const authSlice = createSlice({
   },
 })
 
-export const { setAuth, setToken, setLoginError, clearLoginError, logout } =
-  authSlice.actions
+export const { setAuth, setToken, setLoginError, clearLoginError, logout } = authSlice.actions
 
 export const handleLoginSucess =
   (token: string, remember: boolean) => (dispatch: AppDispatch) => {
@@ -59,16 +59,18 @@ export const handleLoginSucess =
       localStorage.setItem("token", token)
       localStorage.setItem("auth", "true")
     }
+    toast.success("Login sucess")
   }
 
 export const handleLoginError = (error: unknown) => (dispatch: AppDispatch) => {
-  let errorMessage = "Errur de connexion"
+  let errorMessage = "Erreur de connexion"
   if (error && typeof error === 'object' && 'status' in error) {
     const rtkError = error as RTKQueryError
     errorMessage = rtkError.data?.message ?? "erreur inconnue"
   }
   console.error("erreur de login : ", errorMessage)
   dispatch(setLoginError(errorMessage))
+  toast.warn(errorMessage)
 }
 
 export default authSlice.reducer
