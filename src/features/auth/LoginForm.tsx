@@ -3,7 +3,7 @@ import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useLoginMutation } from './authApiSlice';
 import { clearLoginError, handleLoginError, handleLoginSucess} from './authSlice';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch } from '../../app/hooks';
 import { useNavigate } from 'react-router';
 
 // Types dédiés pour le formulaire
@@ -22,7 +22,7 @@ const INITIAL_FORM_VALUE: LoginFormData = {
 const LoginForm = () => {
   const [formValue, setFormValue] = useState<LoginFormData>(INITIAL_FORM_VALUE);
   const { email, password, remember } = formValue;
-  const [login, { isError, isLoading, isSuccess }] = useLoginMutation();
+  const [login, {isLoading }] = useLoginMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
 
@@ -44,7 +44,7 @@ const LoginForm = () => {
       const token = result.body.token;
       dispatch(handleLoginSucess(token, remember))
       setFormValue(INITIAL_FORM_VALUE);
-      void navigate("/")
+      void navigate("/profile")
     } catch (error) {
       dispatch(handleLoginError(error))
     }
