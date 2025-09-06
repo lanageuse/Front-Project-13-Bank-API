@@ -1,4 +1,4 @@
-import ProfileForm from "../features/auth/ProfileForm";
+import ProfileForm from "../features/profile/ProfileForm";
 
 const Profile = () => {
     return (  
