@@ -2,7 +2,15 @@ import iconMoney from '../img/icon-money.png'
 import iconSecurity from '../img/icon-security.png'
 import iconChat from '../img/icon-chat.png'
 
-const featuresData = [
+type Feature = {
+    title :string
+    content :string
+    img :string
+}
+
+type FeaturesData = Feature[] 
+
+const featuresData : FeaturesData = [
     {
         title : "You are our #1 priority",
         content : "Need to talk to a representative? You can get in touch through our 24/7 chat or through a phone call in less than 5 minutes.",
