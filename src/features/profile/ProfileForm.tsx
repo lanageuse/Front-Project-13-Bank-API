@@ -5,7 +5,6 @@ import {
 } from "../auth/authApiSlice"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { type ProfileState, setProfile } from "./profileSlice"
-import { clearLoginError, handleLoginError } from "../auth/authSlice"
 import { toast } from "react-toastify"
 
 type ProfileFormData = {
@@ -51,7 +50,7 @@ const ProfileForm = () => {
         const result = await fetchProfile(undefined).unwrap()
         dispatch(setProfile(result.body))
       } catch (error) {
-        dispatch(handleLoginError(error))
+        console.warn(error)
       }
     }
 
@@ -62,7 +61,6 @@ const ProfileForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(clearLoginError())
     try {
       if(firstName.length === 0 || lastName.length === 0){
         toast.warn('firstName and lastName is required !')
@@ -73,7 +71,7 @@ const ProfileForm = () => {
       setEdited(!edited)
       toast.success(result.message)
     } catch (error) {
-      dispatch(handleLoginError(error))
+      console.warn(error)
     }
   }
   const handleCancel = () => {
