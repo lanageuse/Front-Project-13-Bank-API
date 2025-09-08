@@ -3,18 +3,9 @@ import { createSlice } from "@reduxjs/toolkit"
 import type { AppDispatch } from "../../app/store"
 import { toast } from "react-toastify"
 
-// Type pour les erreurs RTK Query
-type RTKQueryError = {
-  status: number
-  data?: {
-    message?: string
-  }
-}
-
 type AuthState = {
   isAuthenticated: boolean
   token: string | null
-  loginError: string | null
   rememberMe: boolean
 }
 
@@ -25,7 +16,6 @@ const getStoredAuthData = () => {
     return {
       isAuthenticated: true,
       token: localToken,
-      loginError: null,
       rememberMe: true,
     }
   }
@@ -35,14 +25,12 @@ const getStoredAuthData = () => {
     return {
       isAuthenticated: true,
       token: sessionToken,
-      loginError: null,
       rememberMe: false,
     }
   }
   return {
     isAuthenticated: false,
     token: null,
-    loginError: null,
     rememberMe: false,
   }
 }
@@ -59,16 +47,9 @@ export const authSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload
     },
-    setLoginError: (state, action: PayloadAction<string | null>) => {
-      state.loginError = action.payload
-    },
-    clearLoginError: state => {
-      state.loginError = null
-    },
     logout: state => {
       state.token = null
       state.isAuthenticated = false
-      state.loginError = null
       localStorage.removeItem("token")
       localStorage.removeItem("auth")
       localStorage.removeItem("rememberMe")
@@ -78,7 +59,7 @@ export const authSlice = createSlice({
   },
 })
 
-export const { setAuth, setToken, setLoginError, clearLoginError, logout } =
+export const { setAuth, setToken, logout } =
   authSlice.actions
 
 export const handleLoginSucess =
@@ -102,16 +83,5 @@ export const handleLoginSucess =
     }
     toast.success("Login sucess")
   }
-
-export const handleLoginError = (error: unknown) => (dispatch: AppDispatch) => {
-  let errorMessage = "Erreur de connexion"
-  if (error && typeof error === "object" && "status" in error) {
-    const rtkError = error as RTKQueryError
-    errorMessage = rtkError.data?.message ?? "erreur inconnue"
-  }
-  console.error("erreur de login : ", errorMessage)
-  dispatch(setLoginError(errorMessage))
-  toast.warn(errorMessage)
-}
 
 export default authSlice.reducer
