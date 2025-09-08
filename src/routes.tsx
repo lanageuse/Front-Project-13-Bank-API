@@ -19,7 +19,6 @@ const requerieAuth = () => {
 const requerieGuest = () => {
   const state = store.getState()
   const isAuthenticated = state.auth.isAuthenticated
-  console.log(isAuthenticated);
   if(isAuthenticated){
     return redirect('/profile')
   }
