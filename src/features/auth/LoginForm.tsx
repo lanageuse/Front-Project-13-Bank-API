@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useLoginMutation } from './authApiSlice';
-import { clearLoginError, handleLoginError, handleLoginSucess} from './authSlice';
+import {handleLoginSucess} from './authSlice';
 import { useAppDispatch } from '../../app/hooks';
 import { useNavigate } from 'react-router';
 
@@ -38,7 +38,6 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
-    dispatch(clearLoginError())
     try {
       const result = await login({ email, password }).unwrap();
       const token = result.body.token;
@@ -46,7 +45,7 @@ const LoginForm = () => {
       setFormValue(INITIAL_FORM_VALUE);
       void navigate("/profile")
     } catch (error) {
-      dispatch(handleLoginError(error))
+      console.warn(error);
     }
   };
 
