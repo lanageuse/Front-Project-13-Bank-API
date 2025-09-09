@@ -10,20 +10,7 @@ type LoginApiResponse = {
   status: number
 }
 
-type ProfileApiResponse = {
-  body: {
-    email: string
-    firstName: string
-    lastName: string
-    createdAt: string
-    updatedAt: string
-    id: string
-  }
-  message: string
-  status: number
-}
-
-export const authApiSlice = createApi({
+export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001/api/v1/user/",
     prepareHeaders: (headers, { getState }) => {
@@ -49,27 +36,9 @@ export const authApiSlice = createApi({
         body: credentials,
       }),
     }),
-    profile: build.mutation<ProfileApiResponse, undefined>({
-      query: () => ({
-        url: "/profile",
-        method: "POST",
-      }),
-    }),
-    updateProfile: build.mutation<
-      ProfileApiResponse,
-      { firstName: string; lastName: string } 
-      >({
-      query: credentials => ({
-        url: "/profile",
-        method: "PUT",
-        body: credentials,
-      }),
-    }),
   }),
 })
 
 export const {
   useLoginMutation,
-  useProfileMutation,
-  useUpdateProfileMutation,
-} = authApiSlice
+} = authApi

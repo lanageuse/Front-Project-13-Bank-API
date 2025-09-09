@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { useLoginMutation } from './authApiSlice';
+import { useLoginMutation } from './authApi';
 import {handleLoginSucess} from './authSlice';
 import { useAppDispatch } from '../../app/hooks';
 import { useNavigate } from 'react-router';

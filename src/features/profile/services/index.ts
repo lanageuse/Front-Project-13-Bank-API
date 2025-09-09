@@ -1,0 +1,1 @@
+export type {useProfileMutation, useUpdateProfileMutation} from './profileApi'

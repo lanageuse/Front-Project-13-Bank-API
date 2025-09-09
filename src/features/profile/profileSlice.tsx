@@ -1,14 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
+import type { ProfileState } from "./types"
 
-export type ProfileState = {
-  id: string | null
-  email: string | null
-  firstName: string | null
-  lastName: string | null
-  createdAt: string | null
-  updatedAt: string | null
-}
+
 const initialState: ProfileState = {
   id: null,
   firstName: null,
@@ -17,6 +11,7 @@ const initialState: ProfileState = {
   createdAt: null,
   updatedAt: null,
 }
+
 export const profileSlice = createSlice({
   name: "profile",
   initialState,
