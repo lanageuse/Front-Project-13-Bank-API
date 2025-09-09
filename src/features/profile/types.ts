@@ -57,3 +57,10 @@ export type FieldValidationResult = {
   isValid: boolean;
   error?: string;
 }
+
+//types dédié pour les transactions
+export type TransactionProps = {
+  title: string
+  amount: number
+  description: string
+}
