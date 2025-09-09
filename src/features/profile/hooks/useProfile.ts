@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
-import type { ProfileState } from "../types"
 import { setProfile } from "../profileSlice"
 import { useProfileMutation } from "../services/profileApi"
+import type { ProfileState } from "../types"
 
 export const useProfile = () => {
   const [fetchProfile, { isLoading }] = useProfileMutation()

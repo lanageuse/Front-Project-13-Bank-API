@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import {
-  INITIAL_FORM_VALUE,
   type ProfileFormData,
   type ProfileState,
 } from "../types"
@@ -9,12 +8,13 @@ import { toast } from "react-toastify"
 import { setProfile } from "../profileSlice"
 import { useUpdateProfileMutation } from "../services/profileApi"
 import { validateProfile } from "../services/profileValidation"
+import { INITIAL_PROFILE_FORM_VALUE } from "../constants"
 
 export const useProfileForm = () => {
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation()
   const user: ProfileState = useAppSelector(state => state.profile)
   const [formValue, setFormValue] =
-    useState<ProfileFormData>(INITIAL_FORM_VALUE)
+    useState<ProfileFormData>(INITIAL_PROFILE_FORM_VALUE)
   const { firstName, lastName } = formValue
   const [edited, setEdited] = useState(false)
   const dispatch = useAppDispatch()
