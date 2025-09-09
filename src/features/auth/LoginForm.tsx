@@ -1,26 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { useLoginMutation } from './authApi';
 import {handleLoginSucess} from './authSlice';
 import { useAppDispatch } from '../../app/hooks';
+import { useLoginMutation } from './authApi';
 import { useNavigate } from 'react-router';
+import { INITIAL_LOGIN_FORM_VALUE } from '../profile';
+import type {LoginFormData } from '../profile';
 
-// Types dédiés pour le formulaire
-type LoginFormData = {
-  email: string;
-  password: string;
-  remember: boolean;
-}
 
-const INITIAL_FORM_VALUE: LoginFormData = {
-  email: "",
-  password: "",
-  remember: false,
-} as const;
 
 const LoginForm = () => {
-  const [formValue, setFormValue] = useState<LoginFormData>(INITIAL_FORM_VALUE);
+  const [formValue, setFormValue] = useState<LoginFormData>(INITIAL_LOGIN_FORM_VALUE);
   const { email, password, remember } = formValue;
   const [login, {isLoading }] = useLoginMutation();
   const dispatch = useAppDispatch();
@@ -42,7 +33,7 @@ const LoginForm = () => {
       const result = await login({ email, password }).unwrap();
       const token = result.body.token;
       dispatch(handleLoginSucess(token, remember))
-      setFormValue(INITIAL_FORM_VALUE);
+      setFormValue(INITIAL_LOGIN_FORM_VALUE);
       void navigate("/profile")
     } catch (error) {
       console.warn(error);
