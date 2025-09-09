@@ -7,6 +7,13 @@ export type ProfileState = {
   updatedAt: string | null
 }
 
+// Types dédiés pour le formulaire
+export type LoginFormData = {
+  email: string;
+  password: string;
+  remember: boolean;
+}
+
 export type ProfileFormData = {
   firstName: string
   lastName: string
@@ -25,7 +32,28 @@ export type ProfileApiResponse = {
   status: number
 }
 
-export const INITIAL_FORM_VALUE: ProfileFormData = {
-  firstName: "",
-  lastName: "",
-} as const
+export type ProfileData = {
+  firstName: string;
+  lastName: string;
+}
+
+export type ValidationRule = {
+  minLength: number;
+  maxLength: number;
+  pattern: RegExp;
+}
+
+export type ValidationRules = {
+  firstName: ValidationRule;
+  lastName: ValidationRule;
+}
+
+export type ValidationResult = {
+  isValid: boolean;
+  errors: string[];
+}
+
+export type FieldValidationResult = {
+  isValid: boolean;
+  error?: string;
+}
