@@ -14,8 +14,8 @@ export * from './services'
 // ===== TYPES EXPORTS =====
 export * from './types'
 
-// ===== UTILS EXPORTS =====
-export * from './utils'
+// ===== MOCKS EXPORTS =====
+export * from './mocks'
 
 // ===== CONSTANTS EXPORTS =====
 export * from './constants'
