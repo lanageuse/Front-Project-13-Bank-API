@@ -1,9 +1,14 @@
-import ProfileForm from "../features/profile/ProfileForm";
+import { ProfileEditForm, ProfileHeader, TransactionList } from "../features/profile";
+
+
+
 
 const Profile = () => {
     return (  
         <>
-        <ProfileForm/>
+        <ProfileHeader/>
+        <ProfileEditForm/>
+        <TransactionList/>
         </>
     );
 }
