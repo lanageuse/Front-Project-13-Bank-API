@@ -1,1 +1,2 @@
-export type {useProfileMutation, useUpdateProfileMutation} from './profileApi'
+export {useProfileMutation, useUpdateProfileMutation} from './profileApi'
+export {validateFirstName, validateLastName, validateProfile} from './profileValidation'

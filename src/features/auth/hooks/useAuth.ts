@@ -4,7 +4,7 @@ import { setAuth, setToken } from "../authSlice"
 import type { LoginFormData } from "../types"
 import { INITIAL_LOGIN_FORM_VALUE } from "../constants"
 import { useState } from "react"
-import { useLoginMutation } from "../services"
+import { useLoginMutation, validateAuth } from "../services"
 import { useAppDispatch } from "../../../app/hooks"
 import { useNavigate } from "react-router"
 
@@ -30,6 +30,13 @@ export const useAuth = () => {
   ): Promise<void> => {
     e.preventDefault()
     try {
+      const {isValid, errors} = validateAuth({email, password})
+      if(!isValid){
+        toast.warn(
+          errors.join('\n')
+        )
+        return
+      }
       const result = await login({ email, password }).unwrap()
       const token = result.body.token
       dispatch(handleLoginSucess(token, remember))
