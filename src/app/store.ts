@@ -4,7 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/query"
 import { authSlice, setAuth, setToken } from "../features/auth/authSlice"
 import { profileSlice } from "../features/profile/profileSlice"
 import { rtkQueryErrorLogger } from "./errorMiddleware"
-import { authApi } from "../features/auth/authApi"
+import { authApi } from "../features/auth/services/authApi"
 import { profileApi } from "../features/profile/services/profileApi"
 
 // `combineSlices` automatically combines the reducers using

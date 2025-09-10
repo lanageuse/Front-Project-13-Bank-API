@@ -1,14 +1,9 @@
 // Need to use the React-specific entry point to import `createApi`
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import type { RootState } from "../../app/store"
+import type { RootState } from "../../../app/store"
+import type { LoginApiResponse } from "../types"
 
-type LoginApiResponse = {
-  body: {
-    token: string
-  }
-  message: string
-  status: number
-}
+
 
 export const authApi = createApi({
   baseQuery: fetchBaseQuery({
