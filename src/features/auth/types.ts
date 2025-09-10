@@ -20,7 +20,7 @@ export type LoginFormData = {
   password: string;
   remember: boolean;
 }
-
+// Types dédiés pour la validation des champs
 export type ValidateFormData = {
   email: string;
   password: string;

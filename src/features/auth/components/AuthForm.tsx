@@ -2,8 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from '../hooks/useAuth';
 
-
-
+/**
+ * Composant de formulaire d'authentification
+ * @component
+ * @description Formulaire de connexion avec validation et gestion des états de chargement
+ * @returns {JSX.Element} Le formulaire de connexion complet
+ */
 export const AuthForm = () => {
   const {formValue : {email, password, remember}, handleChange, handleSubmit, isLoading} = useAuth()
 
