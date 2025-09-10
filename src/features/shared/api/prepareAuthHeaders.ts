@@ -11,6 +11,6 @@ export const prepareAuthHeaders = (headers: Headers, { getState } : {getState : 
 }
 
 export const fetchAuthBaseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3001/api/v1/user/",
+  baseUrl: import.meta.env.VITE_ENDPOINT_URL as string,
   prepareHeaders: prepareAuthHeaders,
 })
