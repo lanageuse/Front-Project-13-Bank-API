@@ -7,13 +7,6 @@ export type ProfileState = {
   updatedAt: string | null
 }
 
-// Types dédiés pour le formulaire
-export type LoginFormData = {
-  email: string;
-  password: string;
-  remember: boolean;
-}
-
 export type ProfileFormData = {
   firstName: string
   lastName: string
