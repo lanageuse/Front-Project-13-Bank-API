@@ -1,44 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
-import {handleLoginSucess} from './authSlice';
-import { useAppDispatch } from '../../app/hooks';
-import { useLoginMutation } from './authApi';
-import { useNavigate } from 'react-router';
-import { INITIAL_LOGIN_FORM_VALUE } from '../profile';
-import type {LoginFormData } from '../profile';
+import { useAuth } from '../hooks/useAuth';
 
 
 
-const LoginForm = () => {
-  const [formValue, setFormValue] = useState<LoginFormData>(INITIAL_LOGIN_FORM_VALUE);
-  const { email, password, remember } = formValue;
-  const [login, {isLoading }] = useLoginMutation();
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate()
-
-
-  // Typage strict pour les événements de changement
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, type, checked, value } = e.target;
-    setFormValue(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
-    try {
-      const result = await login({ email, password }).unwrap();
-      const token = result.body.token;
-      dispatch(handleLoginSucess(token, remember))
-      setFormValue(INITIAL_LOGIN_FORM_VALUE);
-      void navigate("/profile")
-    } catch (error) {
-      console.warn(error);
-    }
-  };
+export const AuthForm = () => {
+  const {formValue : {email, password, remember}, handleChange, handleSubmit, isLoading} = useAuth()
 
   return (
     <section className="sign-in-content">
@@ -93,5 +60,3 @@ const LoginForm = () => {
     </section>
   );
 };
-
-export default LoginForm;
