@@ -1,6 +1,13 @@
 import { transactionMock } from "../../mocks"
 import { Transaction } from "./Transaction";
 
+/**
+ * Composant TransactionList - Affiche la liste des transactions utilisateur.
+ * Utilise actuellement des données mockées pour l'affichage.
+ * 
+ * @returns {JSX.Element} Liste des transactions avec titre accessible
+ */
+
 export const TransactionList = () => {
   const transactions = transactionMock
   console.log(transactions);

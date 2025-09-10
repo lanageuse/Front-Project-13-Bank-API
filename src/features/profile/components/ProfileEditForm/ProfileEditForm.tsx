@@ -1,7 +1,13 @@
 import { useProfileForm } from "../../hooks/useProfileForm"
 
-export const ProfileEditForm = () => {
+/**
+ * Composant d'édition du profil
+ * @component
+ * @description Formulaire d'edition du profil
+ *  @returns {JSX.Element} Le formulaire d'edition du profil
+ */
 
+export const ProfileEditForm = () => {
   const {isUpdating, edited, firstName, lastName, handleChange, handleSubmit, handleCancel, setEdited } = useProfileForm()
   return (
     <>

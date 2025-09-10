@@ -10,6 +10,13 @@ import { useUpdateProfileMutation } from "../services/profileApi"
 import { validateProfile } from "../services/profileValidation"
 import { INITIAL_PROFILE_FORM_VALUE } from "../constants"
 
+/**
+ * Hook pour gérer le formulaire de modification du profil utilisateur.
+ * Gère l'état du formulaire, la validation, la soumission et l'annulation.
+ * 
+ * @returns {Object} retourne updateProfile, isUpdating, firstName, lastName, edited, setEdited, handleChange, handleSubmit, handleCancel
+ */
+
 export const useProfileForm = () => {
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation()
   const user: ProfileState = useAppSelector(state => state.profile)
@@ -19,6 +26,7 @@ export const useProfileForm = () => {
   const [edited, setEdited] = useState(false)
   const dispatch = useAppDispatch()
 
+  // Pré-remplit le formulaire avec les données du store
   useEffect(() => {
     if (user.firstName && user.lastName) {
       setFormValue({
@@ -28,6 +36,7 @@ export const useProfileForm = () => {
     }
   }, [user.firstName, user.lastName])
 
+  // Met à jour les champs du formulaire
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
     setFormValue(prev => ({
@@ -36,6 +45,7 @@ export const useProfileForm = () => {
     }))
   }
 
+  // Soumet le formulaire après validation
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
@@ -44,6 +54,7 @@ export const useProfileForm = () => {
       toast.warn(errors.join('\n \n'))
       return 
      }
+      // Appel API de mise à jour et mise à jour du store
       const result = await updateProfile({ firstName, lastName }).unwrap()
       dispatch(setProfile(result.body))
       setEdited(!edited)
@@ -53,6 +64,7 @@ export const useProfileForm = () => {
     }
   }
 
+  // Annule l'édition et restaure les valeurs depuis le store
   const handleCancel = () => {
     setEdited(!edited)
     if (user.firstName !== null && user.lastName !== null) {

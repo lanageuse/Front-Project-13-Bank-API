@@ -1,11 +1,18 @@
+// API RTK Query pour le profil utilisateur
 import { createApi } from "@reduxjs/toolkit/query/react"
 import type { ProfileApiResponse } from "../types"
 import { fetchAuthBaseQuery } from "../../shared/api/prepareAuthHeaders";
 
+/**
+ * Configuration de l'API de récupération des données utilisateur
+ * 
+ * Cette API gère toutes les requêtes liées à la récupération des données utilisateurs
+ * Elle utilise un baseQuery personnalisé @fetchAuthBaseQuery qui gère automatiquement les headers d'authentification
+ */
+
 export const profileApi = createApi({
   baseQuery: fetchAuthBaseQuery,
   reducerPath: "profileApi",
-  // Tag types are used for caching and invalidation.
   tagTypes: ["Profile"],
   endpoints: build => ({
     profile: build.mutation<ProfileApiResponse, undefined>({

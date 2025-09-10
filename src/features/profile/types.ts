@@ -1,3 +1,4 @@
+// Etat du profil stocké dans Redux
 export type ProfileState = {
   id: string | null
   email: string | null
@@ -7,11 +8,13 @@ export type ProfileState = {
   updatedAt: string | null
 }
 
+// Données du formulaire d'édition
 export type ProfileFormData = {
   firstName: string
   lastName: string
 }
 
+// Réponse API profil
 export type ProfileApiResponse = {
   body: {
     email: string
@@ -25,27 +28,32 @@ export type ProfileApiResponse = {
   status: number
 }
 
+// Données requises pour valider le formulaire
 export type ProfileData = {
   firstName: string;
   lastName: string;
 }
 
+// Règle de validation
 export type ValidationRule = {
   minLength: number;
   maxLength: number;
   pattern: RegExp;
 }
 
+// Ensemble des règles par champ
 export type ValidationRules = {
   firstName: ValidationRule;
   lastName: ValidationRule;
 }
 
+// Résultat de validation de l'ensemble des champs
 export type ValidationResult = {
   isValid: boolean;
   errors: string[];
 }
 
+// Résultat de validation d'un champ
 export type FieldValidationResult = {
   isValid: boolean;
   error?: string;

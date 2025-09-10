@@ -1,13 +1,12 @@
 import type { ValidationRules, ProfileFormData } from "./types";
 
-
-
+// Valeurs par défaut du formulaire profil
 export const INITIAL_PROFILE_FORM_VALUE: ProfileFormData = {
   firstName: "",
   lastName: "",
 } as const
 
-// Règles de validation
+// Règles de validation des champs
 export const VALIDATION_RULES: ValidationRules = {
   firstName: {
     minLength: 2,
@@ -21,7 +20,7 @@ export const VALIDATION_RULES: ValidationRules = {
   },
 }  as const
 
-// Messages d'erreur
+// Messages d'erreur associés aux règles
 export const ERROR_MESSAGES = {
  firstName: {
   required: 'First name is required',
