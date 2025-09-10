@@ -1,22 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { createApi } from "@reduxjs/toolkit/query/react"
 import type { ProfileApiResponse } from "../types"
-import type { RootState } from "../../../app/store"
-
-
-
+import { fetchAuthBaseQuery } from "../../shared/api/prepareAuthHeaders";
 
 export const profileApi = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/api/v1/user/",
-    prepareHeaders: (headers, { getState }) => {
-      const state = getState() as RootState
-      const token = state.auth.token
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: fetchAuthBaseQuery,
   reducerPath: "profileApi",
   // Tag types are used for caching and invalidation.
   tagTypes: ["Profile"],
@@ -29,8 +16,8 @@ export const profileApi = createApi({
     }),
     updateProfile: build.mutation<
       ProfileApiResponse,
-      { firstName: string; lastName: string } 
-      >({
+      { firstName: string; lastName: string }
+    >({
       query: credentials => ({
         url: "/profile",
         method: "PUT",
@@ -40,7 +27,4 @@ export const profileApi = createApi({
   }),
 })
 
-export const {
-  useProfileMutation,
-  useUpdateProfileMutation,
-} = profileApi
+export const { useProfileMutation, useUpdateProfileMutation } = profileApi

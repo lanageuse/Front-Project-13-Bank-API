@@ -1,22 +1,12 @@
 // Need to use the React-specific entry point to import `createApi`
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import type { RootState } from "../../../app/store"
+import { createApi} from "@reduxjs/toolkit/query/react"
 import type { LoginApiResponse } from "../types"
+import { fetchAuthBaseQuery } from "../../shared/api/prepareAuthHeaders";
 
 
 
 export const authApi = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/api/v1/user/",
-    prepareHeaders: (headers, { getState }) => {
-      const state = getState() as RootState
-      const token = state.auth.token
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`)
-      }
-      return headers
-    },
-  }),
+  baseQuery: fetchAuthBaseQuery,
   reducerPath: "authApi",
   // Tag types are used for caching and invalidation.
   tagTypes: ["Auth"],
