@@ -1,4 +1,5 @@
 import { useProfile } from "../../hooks";
+import { ProfileEditForm } from "../ProfileEditForm/ProfileEditForm";
 
  
 export const ProfileHeader= () => {
@@ -13,6 +14,7 @@ export const ProfileHeader= () => {
             <br />
             {user.firstName ?? "undefined"} {user.lastName ?? "undefined"}
             </h1>
+            <ProfileEditForm/>
         </div>
      );
 }

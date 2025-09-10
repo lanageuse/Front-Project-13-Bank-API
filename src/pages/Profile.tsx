@@ -1,4 +1,4 @@
-import { ProfileEditForm, ProfileHeader, TransactionList } from "../features/profile";
+import { ProfileHeader, TransactionList } from "../features/profile";
 
 
 
@@ -7,7 +7,6 @@ const Profile = () => {
     return (  
         <>
         <ProfileHeader/>
-        <ProfileEditForm/>
         <TransactionList/>
         </>
     );
