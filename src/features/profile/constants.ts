@@ -23,16 +23,16 @@ export const VALIDATION_RULES: ValidationRules = {
 
 // Messages d'erreur
 export const ERROR_MESSAGES = {
-  firstName: {
-    required: 'Le prénom est requis',
-    minLength: `Le prénom doit contenir au moins ${VALIDATION_RULES.firstName.minLength} caractères`,
-    maxLength: `Le prénom ne peut pas dépasser ${VALIDATION_RULES.firstName.maxLength} caractères`,
-    pattern: 'Le prénom contient des caractères non autorisés',
-  },
-  lastName: {
-    required: 'Le nom est requis',
-    minLength: `Le nom doit contenir au moins ${VALIDATION_RULES.lastName.minLength} caractères`,
-    maxLength: `Le nom ne peut pas dépasser ${VALIDATION_RULES.lastName.maxLength} caractères`,
-    pattern: 'Le nom contient des caractères non autorisés',
-  },
+ firstName: {
+  required: 'First name is required',
+  minLength: `First name must contain at least ${VALIDATION_RULES.firstName.minLength} characters`,
+  maxLength: `First name cannot exceed ${VALIDATION_RULES.firstName.maxLength} characters`,
+  pattern: 'First name contains unauthorized characters',
+},
+lastName: {
+  required: 'Last name is required',
+  minLength: `Last name must contain at least ${VALIDATION_RULES.lastName.minLength} characters`,
+  maxLength: `Last name cannot exceed ${VALIDATION_RULES.lastName.maxLength} characters`,
+  pattern: 'Last name contains unauthorized characters',
+},
 } as const
