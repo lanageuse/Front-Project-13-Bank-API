@@ -1,10 +1,6 @@
-import type { ValidationRules, ProfileFormData, LoginFormData } from "./types";
+import type { ValidationRules, ProfileFormData } from "./types";
 
-export const INITIAL_LOGIN_FORM_VALUE: LoginFormData = {
-  email: "",
-  password: "",
-  remember: false,
-} as const;
+
 
 export const INITIAL_PROFILE_FORM_VALUE: ProfileFormData = {
   firstName: "",
