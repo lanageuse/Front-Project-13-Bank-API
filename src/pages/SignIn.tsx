@@ -1,8 +1,9 @@
-import LoginForm  from "../features/auth/LoginForm";
+import { AuthForm } from "../features/auth";
+
 const SignIn = () => {
     return ( 
         <>
-        <LoginForm/>
+        <AuthForm/>
         </>
      );
 }
