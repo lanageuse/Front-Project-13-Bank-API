@@ -1,6 +1,6 @@
 import { createApi} from "@reduxjs/toolkit/query/react"
 import type { LoginApiResponse } from "../types"
-import { fetchAuthBaseQuery } from "../../shared/api/prepareAuthHeaders";
+import { fetchAuthBaseQuery } from "../../utils/api/prepareAuthHeaders";
 
 /**
  * Configuration de l'API d'authentification avec RTK Query

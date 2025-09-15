@@ -1,7 +1,7 @@
 // API RTK Query pour le profil utilisateur
 import { createApi } from "@reduxjs/toolkit/query/react"
 import type { ProfileApiResponse } from "../types"
-import { fetchAuthBaseQuery } from "../../shared/api/prepareAuthHeaders";
+import { fetchAuthBaseQuery } from "../../utils/api/prepareAuthHeaders";
 
 /**
  * Configuration de l'API de récupération des données utilisateur
