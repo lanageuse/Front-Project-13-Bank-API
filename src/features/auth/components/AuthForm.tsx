@@ -15,7 +15,7 @@ export const AuthForm = () => {
     <section className="sign-in-content">
       <FontAwesomeIcon icon={faUserCircle} />
       <h1>Sign In</h1>
-      <form onSubmit={e => {void handleSubmit(e)}}>
+      <form onSubmit={e => { void handleSubmit(e); }}>
         <div className="input-wrapper">
           <label htmlFor="email">Username</label>
           <input 
@@ -55,10 +55,10 @@ export const AuthForm = () => {
 
         <button 
           className="sign-in-button" 
-          type="submit" 
-          disabled={isLoading}
+          type="submit"
+          disabled = {isLoading}
         >
-          {isLoading ? 'Loading...' : 'Sign In'}
+          {isLoading  ? 'Loading' : 'Sign In'}
         </button>
       </form>
     </section>
