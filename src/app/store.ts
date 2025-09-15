@@ -6,6 +6,7 @@ import { profileSlice } from "../features/profile/profileSlice"
 import { rtkQueryErrorLogger } from "./errorMiddleware"
 import { authApi } from "../features/auth/services/authApi"
 import { profileApi } from "../features/profile/services/profileApi"
+import { storageMiddleware } from "./storageMidlleware"
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
@@ -24,7 +25,8 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
       return getDefaultMiddleware().concat(
         authApi.middleware,
         profileApi.middleware,
-        rtkQueryErrorLogger)
+        rtkQueryErrorLogger,
+        storageMiddleware.middleware)
     },
     preloadedState,
   })
