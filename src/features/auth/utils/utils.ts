@@ -6,6 +6,7 @@ export  const getStoredAuthData = () => {
         isAuthenticated: true,
         token: localToken,
         rememberMe: true,
+        status : "idle"
       }
     }
     const sessionToken = sessionStorage.getItem("token")
@@ -15,11 +16,13 @@ export  const getStoredAuthData = () => {
         isAuthenticated: true,
         token: sessionToken,
         rememberMe: false,
+        status : "idle"
       }
     }
     return {
       isAuthenticated: false,
       token: null,
       rememberMe: false,
+      status : "idle"
     }
   }
