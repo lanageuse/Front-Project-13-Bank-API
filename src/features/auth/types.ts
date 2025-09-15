@@ -3,6 +3,7 @@ export type AuthState = {
   isAuthenticated: boolean
   token: string | null
   rememberMe: boolean
+  status : string //'idle' | 'pending' | 'succeeded' | 'failed'
 }
 
 // Types dédiés pour la réponse du endpoint login
