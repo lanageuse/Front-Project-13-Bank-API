@@ -33,25 +33,11 @@ export const authSlice = createAppSlice({
           state.status = "loading"
         },
         fulfilled: (state, action ) => {
-          const {token, remember, message} = action.payload
+          const {token, message} = action.payload
           state.token = token
           state.isAuthenticated = true
           state.status = "success"
-          if (remember) {
-            localStorage.setItem("token", token)
-            localStorage.setItem("auth", "true")
-            localStorage.setItem("rememberMe", "true")
-
-            sessionStorage.removeItem("token")
-            sessionStorage.removeItem("auth")
-          } else {
-            sessionStorage.setItem("token", token)
-            sessionStorage.setItem("auth", "true")
-
-            localStorage.removeItem("token")
-            localStorage.removeItem("auth")
-            localStorage.removeItem("rememberMe")
-          }
+         
           toast.success(message)
         },
         rejected : (state, action) => {
@@ -64,13 +50,6 @@ export const authSlice = createAppSlice({
     logout: create.reducer(state => {
       state.token = null
       state.isAuthenticated = false
-
-      localStorage.removeItem("token")
-      localStorage.removeItem("auth")
-      localStorage.removeItem("rememberMe")
-
-      sessionStorage.removeItem("token")
-      sessionStorage.removeItem("auth")
     }),
   }),
 })
