@@ -32,7 +32,8 @@ export const authSlice = createAppSlice({
         pending : (state) => {
           state.status = "loading"
         },
-        fulfilled: (state, {payload : {token, remember, message}}) => {
+        fulfilled: (state, action ) => {
+          const {token, remember, message} = action.payload
           state.token = token
           state.isAuthenticated = true
           state.status = "success"
@@ -53,8 +54,9 @@ export const authSlice = createAppSlice({
           }
           toast.success(message)
         },
-        rejected : (state) => {
+        rejected : (state, action) => {
           state.status = 'error'
+          toast.error(action.error.message ?? 'Login failed')
         }
       },
     ),
