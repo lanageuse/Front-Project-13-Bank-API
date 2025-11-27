@@ -1,10 +1,10 @@
 import { toast } from "react-toastify"
-import { loginUser } from "../authSlice"
+import { setAuth, setToken } from "../authSlice"
 import type { LoginFormData } from "../types"
 import { INITIAL_LOGIN_FORM_VALUE } from "../constants"
 import { useState } from "react"
-import { validateAuth } from "../services"
-import { useAppDispatch, useAppSelector } from "../../../app/hooks"
+import { useLoginMutation, validateAuth } from "../services"
+import { useAppDispatch } from "../../../app/hooks"
 import { useNavigate } from "react-router"
 
 /**
@@ -19,12 +19,9 @@ export const useAuth = () => {
     INITIAL_LOGIN_FORM_VALUE,
   )
   const { email, password, remember } = formValue
+  const [login, { isLoading }] = useLoginMutation()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
-  const status = useAppSelector(state => state.auth.status)
-  const isLoading = status === "loading"
-
   /**
    * Gestionnaire de changement des champs du formulaire
    * @param {React.ChangeEvent<HTMLInputElement>} e - Événement de changement
@@ -53,7 +50,11 @@ export const useAuth = () => {
         return
       }
       // Tentative de connexion
-      await dispatch(loginUser({ email, password, remember }))
+      const result = await login({ email, password, remember }).unwrap()
+
+      dispatch(setToken(result.body.token))
+      dispatch(setAuth(true))
+
       setFormValue(INITIAL_LOGIN_FORM_VALUE)
       await navigate("/profile")
     } catch (error) {
@@ -65,6 +66,6 @@ export const useAuth = () => {
     formValue,
     handleChange,
     handleSubmit,
-    isLoading
+    isLoading,
   }
 }

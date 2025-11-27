@@ -1,12 +1,16 @@
-export  const getStoredAuthData = () => {
+import { STATE } from "../constants"
+import type { AuthState } from "../types"
+
+export const getStoredAuthData = (): AuthState => {
     const localToken = localStorage.getItem("token")
     const localAuth = localStorage.getItem("auth")
+
     if (localToken && localAuth === "true") {
       return {
         isAuthenticated: true,
         token: localToken,
         rememberMe: true,
-        status : "idle"
+        status: STATE.IDLE
       }
     }
     const sessionToken = sessionStorage.getItem("token")
@@ -16,13 +20,13 @@ export  const getStoredAuthData = () => {
         isAuthenticated: true,
         token: sessionToken,
         rememberMe: false,
-        status : "idle"
+        status: STATE.IDLE
       }
     }
     return {
       isAuthenticated: false,
       token: null,
       rememberMe: false,
-      status : "idle"
+      status: STATE.IDLE
     }
   }

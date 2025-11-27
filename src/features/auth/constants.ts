@@ -1,8 +1,8 @@
 /**
- *  Définit toutes les constantes utilisées dans le module auth
+ *  Définit toutes les constantes utilisées dans la feature auth
  */
 
-import type { LoginFormData, ValidationRules } from "./types";
+import type { LoginFormData, ValidationRules } from "./types"
 
 /**
  * Valeurs initiales du formulaire de connexion
@@ -12,7 +12,19 @@ export const INITIAL_LOGIN_FORM_VALUE: LoginFormData = {
   email: "",
   password: "",
   remember: false,
-} as const;
+} as const
+
+/**
+ * Valeurs pour le status
+ * @constant {LoginFormData} INITIAL_LOGIN_FORM_VALUE
+ */
+
+export const STATE = {
+  IDLE: "idle",
+  SUCCESS: "success",
+  LOADING: "loading",
+  ERROR: "error",
+} as const
 
 /**
  * Règles de validation pour les champs du formulaire
@@ -29,23 +41,23 @@ export const VALIDATION_RULES: ValidationRules = {
     maxLength: 30,
     pattern: null,
   },
-}  as const
+} as const
 
 /**
  * Messages d'erreur pour la validation des champs
  * @constant {Object} ERROR_MESSAGES
  */
 export const ERROR_MESSAGES = {
- email: {
-  required: 'Username is required',
-  minLength: `Username must contain at least ${VALIDATION_RULES.email.minLength} characters`,
-  maxLength: `Username cannot exceed ${VALIDATION_RULES.email.maxLength} characters`,
-  pattern: 'Username contains unauthorized characters',
-},
-password: {
-  required: 'Password is required',
-  minLength: `Password must contain at least ${VALIDATION_RULES.password.minLength} characters`,
-  maxLength: `Password cannot exceed ${VALIDATION_RULES.password.maxLength} characters`,
-  pattern: 'Password contains unauthorized characters',
-},
+  email: {
+    required: "Username is required",
+    minLength: `Username must contain at least ${VALIDATION_RULES.email.minLength} characters`,
+    maxLength: `Username cannot exceed ${VALIDATION_RULES.email.maxLength} characters`,
+    pattern: "Username contains unauthorized characters",
+  },
+  password: {
+    required: "Password is required",
+    minLength: `Password must contain at least ${VALIDATION_RULES.password.minLength} characters`,
+    maxLength: `Password cannot exceed ${VALIDATION_RULES.password.maxLength} characters`,
+    pattern: "Password contains unauthorized characters",
+  },
 } as const

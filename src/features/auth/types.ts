@@ -1,9 +1,11 @@
-// Types dédiés pour l'état du state
+import { STATE } from "./constants"
+
+// Types dédiés pour l'état de authState
 export type AuthState = {
   isAuthenticated: boolean
   token: string | null
   rememberMe: boolean
-  status : string //'idle' | 'pending' | 'succeeded' | 'failed'
+  status : typeof STATE[keyof typeof STATE]
 }
 
 // Types dédiés pour la réponse du endpoint login

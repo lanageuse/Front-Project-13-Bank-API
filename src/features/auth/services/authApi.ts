@@ -16,12 +16,12 @@ export const authApi = createApi({
   endpoints: build => ({
     login: build.mutation<
       LoginApiResponse,
-      { email: string; password: string }
+      { email: string; password: string, remember : boolean }
     >({
-      query: credentials => ({
+      query: ({ email, password}) => ({
         url: "/login",
         method: "POST",
-        body: credentials,
+        body: { email, password},
       }),
     }),
   }),

@@ -1,9 +1,8 @@
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { createAppSlice } from "../../app/createAppSlice"
 import { getStoredAuthData } from "./utils/utils"
-import type { AuthState, LoginFormData } from "./types"
-import { endpoints } from "./services/authApi"
-import { toast } from "react-toastify"
+import type { AuthState } from "./types"
+import { STATE } from "./constants"
 
 // Récupération de l'état initial depuis le localStorage/sessionStorage à l'aide de la function utilitaire getStoredAuthData
 const initialState: AuthState = getStoredAuthData()
@@ -22,30 +21,9 @@ export const authSlice = createAppSlice({
     setToken: create.reducer((state, action: PayloadAction<string>) => {
       state.token = action.payload
     }),
-    // LoginUser en cas de succés
-    loginUser: create.asyncThunk(
-      async (params: LoginFormData, { dispatch }) => {
-        const result = await dispatch(endpoints.login.initiate(params)).unwrap()
-          return { token: result.body.token, remember: params.remember, message : result.message }
-      },
-      {
-        pending : (state) => {
-          state.status = "loading"
-        },
-        fulfilled: (state, action ) => {
-          const {token, message} = action.payload
-          state.token = token
-          state.isAuthenticated = true
-          state.status = "success"
-         
-          toast.success(message)
-        },
-        rejected : (state, action) => {
-          state.status = 'error'
-          toast.error(action.error.message ?? 'Login failed')
-        }
-      },
-    ),
+    setStatus : create.reducer((state, action : PayloadAction<typeof STATE[keyof typeof STATE]>)=>{
+      state.status = action.payload
+    }),
     // Déconnexion : réinitialise l'état et nettoie le stockage
     logout: create.reducer(state => {
       state.token = null
@@ -54,5 +32,5 @@ export const authSlice = createAppSlice({
   }),
 })
 
-export const { setAuth, setToken, loginUser, logout } = authSlice.actions
+export const { setAuth, setToken, logout } = authSlice.actions
 export default authSlice.reducer
