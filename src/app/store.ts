@@ -1,18 +1,37 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { combineSlices, configureStore } from "@reduxjs/toolkit"
 import { setupListeners } from "@reduxjs/toolkit/query"
-import { authSlice, setAuth, setToken } from "../features/auth/authSlice"
+import { authSlice } from "../features/auth/authSlice"
 import { profileSlice } from "../features/profile/profileSlice"
-import { rtkQueryErrorLogger } from "./errorMiddleware"
+import { rtkQueryErrorLogger } from "./middlewares/rtkQueryErrorLogger"
 import { authApi } from "../features/auth/services/authApi"
 import { profileApi } from "../features/profile/services/profileApi"
-import { storageMiddleware } from "./storageMidlleware"
+import { storageMiddleware } from "./middlewares/storageMidlleware"
+import { unauthenticatedMiddleware } from "./middlewares/unauthenticatedMiddleware"
+import { STATE } from "../features/auth"
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
-const rootReducer = combineSlices( authApi, authSlice, profileApi, profileSlice)
+const rootReducer = combineSlices(authApi, authSlice, profileApi, profileSlice)
 // Infer the `RootState` type from the root reducer
 export type RootState = ReturnType<typeof rootReducer>
+
+const loadInitState = (): Partial<RootState> => {
+  const token = localStorage.getItem("token")
+  const rememberMe = localStorage.getItem("rememberMe")
+  const auth = localStorage.getItem("auth")
+
+  if (!token && !rememberMe && !auth) return {}
+
+  return {
+    auth: {
+      token,
+      rememberMe: rememberMe === "true",
+      isAuthenticated: auth === "true",
+      status: STATE.IDLE,
+    },
+  }
+}
 
 // The store setup is wrapped in `makeStore` to allow reuse
 // when setting up tests that need the same store config
@@ -25,8 +44,10 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
       return getDefaultMiddleware().concat(
         authApi.middleware,
         profileApi.middleware,
+        unauthenticatedMiddleware,
         rtkQueryErrorLogger,
-        storageMiddleware.middleware)
+        storageMiddleware.middleware,
+      )
     },
     preloadedState,
   })
@@ -36,15 +57,7 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
   return store
 }
 
-
-export const store = makeStore()
-
-const token = localStorage.getItem("token")
-const auth = localStorage.getItem("auth")
-if(token && auth){
-  store.dispatch(setToken(token))
-  store.dispatch(setAuth(true))
-}
+export const store = makeStore(loadInitState())
 
 // Infer the type of `store`
 export type AppStore = typeof store
