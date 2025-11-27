@@ -48,10 +48,6 @@ const router = createBrowserRouter([
         errorElement: <NotFound />,
         loader : requerieAuth
       },
-      {
-        path: '*',
-        element: <NotFound />,
-      },
     ]
   },
   {
