@@ -1,27 +1,45 @@
-# vite-template-redux
+# ArgentBank – Frontend
 
-Uses [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), and [React Testing Library](https://github.com/testing-library/react-testing-library) to create a modern [React](https://react.dev/) app compatible with [Create React App](https://create-react-app.dev/)
+Projet front-end basé sur le **template officiel Redux : vite-template-redux**
+
+## Technologies utilisées
+
+- **Vite** – Serveur de développement rapide  
+- **React** – Interface utilisateur  
+- **Redux Toolkit** – Gestion d’état centralisée  
+- **RTK Query** – Gestion des requêtes API et du cache  
+- **TypeScript** – Typage strict  
+- **React Router** – Navigation  
+- **React Toastify** – Notifications utilisateur  
+
+## Structure du projet
+
+L’application est organisée autour de :
+
+- `features/` – Slices Redux & services RTK Query  
+- `middleware/` – Middlewares (auth, erreurs, stockage…)  
+- `pages/` – Pages principales  
+- `components/` – Composants UI réutilisables  
+- `utils/` – Fonctions utilitaires  
+- `styles/` – Styles globaux  
+
+## Fonctionnalités principales
+
+- Authentification utilisateur  
+- Gestion centralisée des erreurs via middlewares  
+- Pages sécurisées avec redirection en cas de session expirée  
+- Gestion du profil via RTK Query  
+- Persistance du token et du "remember me"
+
+## 🛠️ Scripts
+
+- `dev` – Démarre le serveur de développement  
+- `build` – Génère la version de production  
+- `preview` – Prévisualise le build  
+- `test` – Lance les tests (pas encore en place 😞)  
+
+## 📦 Installation
 
 ```sh
-npx tiged reduxjs/redux-templates/packages/vite-template-redux my-app
-```
-
-## Goals
-
-- Easy migration from Create React App or Vite
-- As beginner friendly as Create React App
-- Optimized performance compared to Create React App
-- Customizable without ejecting
-
-## Scripts
-
-- `dev`/`start` - start dev server and open browser
-- `build` - build for production
-- `preview` - locally preview production build
-- `test` - launch test runner
-
-## Inspiration
-
-- [Create React App](https://github.com/facebook/create-react-app/tree/main/packages/cra-template)
-- [Vite](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react)
-- [Vitest](https://github.com/vitest-dev/vitest/tree/main/examples/react-testing-lib)
+npm install
+npm run dev
