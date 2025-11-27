@@ -1,15 +1,17 @@
 import { createListenerMiddleware } from "@reduxjs/toolkit"
-import { authSlice } from "../features/auth/authSlice"
+import { authSlice } from "../../features/auth/authSlice"
+import { authApi } from "../../features/auth/services/authApi" // import direct = pas d’import circulaire
 
 export const storageMiddleware = createListenerMiddleware()
 
-// Écouter spécifiquement l'action de loginUser fulfilled
+
+//Écoute du login (mutation RTK Query matchFulfilled)
+
 storageMiddleware.startListening({
-  actionCreator: authSlice.actions.loginUser.fulfilled,
+  matcher: authApi.endpoints.login.matchFulfilled,
   effect: action => {
-    const token = action.payload.token
-    const remember = action.payload.remember
-    //configure le type de storage en fonction du choix utilisateur
+    const { token } = action.payload.body;
+    const {remember} = action.meta.arg.originalArgs
     if (remember) {
       localStorage.setItem("token", token)
       localStorage.setItem("auth", "true")
@@ -27,15 +29,13 @@ storageMiddleware.startListening({
     }
   },
 })
+
 // Écouter spécifiquement l'action de logout pour supprimer les différents types de storage
+
 storageMiddleware.startListening({
   actionCreator: authSlice.actions.logout,
   effect: () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("auth")
-    localStorage.removeItem("rememberMe")
-
-    sessionStorage.removeItem("token")
-    sessionStorage.removeItem("auth")
+    localStorage.clear()
+    sessionStorage.clear()
   },
 })
