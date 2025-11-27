@@ -70,7 +70,7 @@ body {
 
 .main-nav-logo-image {
   max-width: 100%;
-  width: 200px;
+  width: 140px;
 }
 
 .hero {
@@ -104,6 +104,9 @@ body {
 }
 
 @media (min-width: 920px) {
+  .main-nav-logo-image {
+    width: 200px;
+  }
   .hero {
     height: 400px;
     background-position: 0% 33%;
@@ -206,21 +209,21 @@ body {
   padding: 5px;
   font-size: 1.2rem;
 }
-.input-container{
+.input-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 1rem;
 }
-.button-container{
+.button-container {
   display: flex;
   justify-content: center;
   gap: 1rem;
 }
-.button-container button{
-  width:8rem;
+.button-container button {
+  width: 8rem;
 }
-.form-edit{
+.form-edit {
   display: flex;
   flex-direction: column;
 }
@@ -321,8 +324,8 @@ body {
   padding: 2rem;
 }
 
-.notFound-container .link  a{
-  color:white;
+.notFound-container .link a {
+  color: white;
   text-decoration: none;
 }
 .notFound-container .link {
