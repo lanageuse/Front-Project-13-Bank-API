@@ -20,7 +20,6 @@ export const ProfileHeader= () => {
             Welcome back
             <br />
             {user.firstName ?? "undefined"} {user.lastName ?? "undefined"}
-            {/* Formulaire d'édition inline */}
             </h1>
             <ProfileEditForm/>
         </div>
