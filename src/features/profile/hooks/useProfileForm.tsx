@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react"
-import {
-  type ProfileFormData,
-  type ProfileState,
-} from "../types"
+import { type ProfileFormData, type ProfileState } from "../types"
 import { useAppDispatch, useAppSelector } from "../../../app/hooks"
 import { toast } from "react-toastify"
 import { setProfile } from "../profileSlice"
@@ -13,15 +10,16 @@ import { INITIAL_PROFILE_FORM_VALUE } from "../constants"
 /**
  * Hook pour gérer le formulaire de modification du profil utilisateur.
  * Gère l'état du formulaire, la validation, la soumission et l'annulation.
- * 
+ *
  * @returns {Object} retourne updateProfile, isUpdating, firstName, lastName, edited, setEdited, handleChange, handleSubmit, handleCancel
  */
 
 export const useProfileForm = () => {
   const [updateProfile, { isLoading: isUpdating }] = useUpdateProfileMutation()
   const user: ProfileState = useAppSelector(state => state.profile)
-  const [formValue, setFormValue] =
-    useState<ProfileFormData>(INITIAL_PROFILE_FORM_VALUE)
+  const [formValue, setFormValue] = useState<ProfileFormData>(
+    INITIAL_PROFILE_FORM_VALUE,
+  )
   const { firstName, lastName } = formValue
   const [edited, setEdited] = useState(false)
   const dispatch = useAppDispatch()
@@ -49,16 +47,18 @@ export const useProfileForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-     const {isValid, errors} = validateProfile({firstName, lastName})
-     if(!isValid){
-      toast.warn(errors.join('\n \n'))
-      return 
-     }
+      const { isValid, errors } = validateProfile({ firstName, lastName })
+      if (!isValid) {
+        const styledErrors = errors.map((error, i) => <li key={i}>{error}</li>)
+        toast.warn(<ul>{styledErrors}</ul>)
+        return
+      }
       // Appel API de mise à jour et mise à jour du store
       const result = await updateProfile({ firstName, lastName }).unwrap()
-      dispatch(setProfile(result.body))
+      const { body, message } = result
+      dispatch(setProfile(body))
       setEdited(!edited)
-      toast.success(result.message)
+      toast.success(message)
     } catch (error) {
       console.warn(error)
     }
@@ -85,6 +85,6 @@ export const useProfileForm = () => {
     setEdited,
     handleChange,
     handleSubmit,
-    handleCancel
+    handleCancel,
   }
 }

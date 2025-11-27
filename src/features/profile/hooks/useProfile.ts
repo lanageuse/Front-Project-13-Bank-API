@@ -10,7 +10,7 @@ import type { ProfileState } from "../types"
  * @returns {Object} retourne le profil utilisateur, état de chargement, erreur et une fonction de rechargement
  */
 export const useProfile = () => {
-  const [fetchProfile, { isLoading }] = useProfileMutation()
+  const [fetchProfile, {isLoading}] = useProfileMutation()
   const user: ProfileState = useAppSelector(state => state.profile)
   const dispatch = useAppDispatch()
   const [error, setError] = useState<string | null>(null)
