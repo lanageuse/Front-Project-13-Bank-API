@@ -57,6 +57,7 @@ export const useAuth = () => {
 
       setFormValue(INITIAL_LOGIN_FORM_VALUE)
       await navigate("/profile")
+      toast.success(result.message)
     } catch (error) {
       console.warn(error)
     }
