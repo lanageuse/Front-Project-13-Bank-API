@@ -112,7 +112,8 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/transactions:
+
+  /user/{accountId}/transactions:
     get:
       security:
         - Bearer: []
@@ -126,6 +127,11 @@ paths:
           description: Attach Bearer JWT token
           type: string
           required: true
+        - in: path
+          name: accountId
+          type: string
+          required: true
+          description: ID of account
       produces:
         - application/json
       responses:
@@ -139,40 +145,40 @@ paths:
           description: Unauthorized
         "500":
           description: Internal Server Error
-  /user/transaction:
-    post:
+  /user/transaction/{transactionId}:
+    get:
       security:
         - Bearer: []
       tags:
         - Transaction Module
-      summary: Create Transaction
-      description: API for creating a new transaction
+      summary: Get Transaction Details
+      description: API for retrieving details of a specific transaction
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
           type: string
           required: true
-        - in: body
-          name: body
-          description: Transaction creation payload
+        - in: path
+          name: transactionId
+          type: string
           required: true
-          schema:
-            $ref: "#/definitions/TransactionCreatePayload"
+          description: ID of transaction to update
       produces:
         - application/json
       responses:
-        "201":
-          description: Transaction created successfully
+        "200":
+          description: Transaction retrieved successfully
           schema:
             $ref: "#/definitions/TransactionResponse"
         "400":
           description: Invalid Fields
         "401":
           description: Unauthorized
+        "404":
+          description: Transaction not found
         "500":
           description: Internal Server Error
-  /user/transaction/{transactionId}:
     put:
       security:
         - Bearer: []
@@ -212,7 +218,6 @@ paths:
           description: Transaction not found
         "500":
           description: Internal Server Error
-
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -298,30 +303,6 @@ definitions:
       notes:
         type: string
         description: User notes (editable)
-  TransactionCreatePayload:
-    type: object
-    required:
-      - description
-      - amount
-      - transactionType
-    properties:
-      description:
-        type: string
-        description: Transaction description
-      amount:
-        type: number
-        description: Transaction amount
-      transactionType:
-        type: string
-        description: Type of transaction
-        enum: ["Electronic", "Cash", "Check", "Transfer"]
-      category:
-        type: string
-        description: Transaction category
-        enum: ["Food", "Transportation", "Entertainment", "Shopping", "Bills", "Other"]
-      notes:
-        type: string
-        description: User notes
   TransactionUpdatePayload:
     type: object
     properties:
